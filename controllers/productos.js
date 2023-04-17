@@ -11,10 +11,16 @@ const { handleHttpError } = require("../utils/handleError");
 const getItems = async (req,res) => {
 
     try {
-        const user = req.user;
-        const data = await productosModel.find({});
-        console.log(data)
-        res.send({data, user});   
+        // const user = req.user;
+        // const data = await productosModel.find({});
+        // console.log(data)
+        // res.send({data, user});   
+
+        const producto = await productosModel.find({})
+          .populate('catalog_id')
+          .populate('proveedor_id');
+        res.json(producto);
+
     } catch (e) {
         console.log(e)
         handleHttpError(res, "error_get_items");   

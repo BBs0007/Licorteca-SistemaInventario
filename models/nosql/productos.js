@@ -28,11 +28,11 @@ const ProductoScheme = new mongoose.Schema(
         },
         catalog_id: { 
             type: mongoose.Schema.Types.ObjectId, 
-            ref: "catalogos"
+            ref: 'Catalogos'
         },
         proveedor_id: { 
             type: mongoose.Schema.Types.ObjectId, 
-            ref: "proveedores"
+            ref: 'proveedores'
         }
 
 

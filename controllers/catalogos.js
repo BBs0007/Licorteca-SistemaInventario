@@ -11,10 +11,15 @@ const { handleHttpError } = require("../utils/handleError");
 const getCatalogos = async (req,res) => {
 
     try {
-        const user = req.user;
-        const data = await catalogosModel.find({});
-        console.log(data)
-        res.send({data, user});   
+        // const user = req.user;
+        // const data = await catalogosModel.find({});
+        // console.log(data)
+        // res.send({data, user});  
+        
+        const producto = await productosModel.find({})
+          .populate('proveedor_id');
+        res.json(producto);
+
     } catch (e) {
         console.log(e)
         handleHttpError(res, "error_get_items");   
@@ -27,10 +32,15 @@ const getCatalogos = async (req,res) => {
  * */
 const getCatalogo = async (req,res) => {
     try {
-        req = matchedData(req);
-        const {id} = req;
-        const data = await catalogosModel.findById(id);
-        res.send({data});  
+        // req = matchedData(req);
+        // const {id} = req;
+        // const data = await catalogosModel.findById(id);
+        // res.send({data}); 
+        
+        const producto = await productosModel.findById(req.params.id)
+          .populate('proveedor_id');
+        res.json(producto);
+
     } catch (e) {
         console.log(e)
         handleHttpError(res, "ERror_get_ITEM")
