@@ -16,7 +16,7 @@ const getCatalogos = async (req,res) => {
         // console.log(data)
         // res.send({data, user});  
         
-        const producto = await productosModel.find({})
+        const producto = await catalogosModel.find({})
           .populate('proveedor_id');
         res.json(producto);
 
@@ -37,7 +37,7 @@ const getCatalogo = async (req,res) => {
         // const data = await catalogosModel.findById(id);
         // res.send({data}); 
         
-        const producto = await productosModel.findById(req.params.id)
+        const producto = await catalogosModel.findById(req.params.id)
           .populate('proveedor_id');
         res.json(producto);
 
