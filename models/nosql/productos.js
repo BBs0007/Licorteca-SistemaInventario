@@ -14,26 +14,31 @@ const ProductoScheme = new mongoose.Schema(
             type: Number,
             required: true
         },
+        description: {
+            type: String,
+            required: true
+        },
+        url_img: {
+            type: String,
+        },
         stock_min: { 
             type: Number, 
-            required: true 
+            
         },
         stock_max: { 
             type: Number, 
-            required: true 
+             
         },
         stock_actual: { 
             type: Number, 
             required: true 
         },
-        catalog_id: { 
-            type: mongoose.Schema.Types.ObjectId, 
-            ref: 'Catalogos'
-        },
+        
         proveedor_id: { 
             type: mongoose.Schema.Types.ObjectId, 
             ref: 'proveedores'
         }
+        
 
 
     },

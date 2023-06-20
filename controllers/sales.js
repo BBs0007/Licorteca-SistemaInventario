@@ -44,46 +44,54 @@ const getSale = async (req,res) => {
  * */
 const createSale = async (req,res,next) => {
 
-    const newSale = new salesModel({
-        product_id: req.body.product_id,
-        quantity: req.body.quantity
-      });
+    // const newSale = new salesModel({
+    //     products_sold: [
+    //         {   product_id: req.body.product_id, 
+    //             quantity: req.body.quantity, 
+    //             total_pagar: req.body.total_pagar
+    //         }
+            
+    //       ]
+    //   });
 
+    const newSale = new salesModel(req.body);
 
     try {
 
     
        
         const savedSale = await newSale.save();
-        const product = await productosModel.findById(savedSale.product_id);
-        if (product) {
+        //const product = await productosModel.findById(savedSale.product_id);
+        // if (product) {
           
-          let comprobar = product.stock_actual;
+        //   let comprobar = product.stock_actual;
           
-          comprobar -= savedSale.quantity;
+        //   comprobar -= savedSale.quantity;
          
-          if(comprobar < 0){
-            product.stock_actual = 0;
-            console.log(`¡Alerta! El producto ${product.name} se acabo, se deben hacer pedido`);
-            res.status(400).send('El producto ingresado se acabo, se debe hacer perdido');
-            return;
-          }
+        //   if(comprobar < 0){
+        //     product.stock_actual = 0;
+        //     console.log(`¡Alerta! El producto ${product.name} se acabo, se deben hacer pedido`);
+        //     res.status(400).send('El producto ingresado se acabo, se debe hacer perdido');
+        //     return;
+        //   }
 
-          if (comprobar <= product.stock_min) {
-            console.log(`¡Alerta! El producto ${product.name} está por debajo de su stock mínimo que es de (${product.stock_min}) unidades y tiene de stock actual es de (${comprobar}) unidades.`);
-            res.status(400).send('El producto esta por debajo de su minimo, se debe hacer el pedido');
-            product.stock_actual -= savedSale.quantity;
-            await product.save();
+        //   if (comprobar <= product.stock_min) {
+        //     console.log(`¡Alerta! El producto ${product.name} está por debajo de su stock mínimo que es de (${product.stock_min}) unidades y tiene de stock actual es de (${comprobar}) unidades.`);
+        //     res.status(400).send('El producto esta por debajo de su minimo, se debe hacer el pedido');
+        //     product.stock_actual -= savedSale.quantity;
+        //     await product.save();
            
-            return;
-          };
+        //     return;
+        //   };
 
         
-            product.stock_actual -= savedSale.quantity;
-            await product.save();
+            //product.stock_actual -= savedSale.quantity;
+        //}    
           
           
-        }
+        
+        //await product.save();
+
         res.json(savedSale);
     
     

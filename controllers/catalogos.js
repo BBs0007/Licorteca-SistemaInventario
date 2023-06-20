@@ -17,7 +17,8 @@ const getCatalogos = async (req,res) => {
         // res.send({data, user});  
         
         const producto = await catalogosModel.find({})
-          .populate('proveedor_id');
+          .populate('proveedor_id')
+          .populate('productos.producto_id');
         res.json(producto);
 
     } catch (e) {
@@ -68,11 +69,7 @@ const createCatalogo = async (req,res) => {
     //     handleHttpError(res, "error al crear item");
     // }
 
-    const newCatalogo = new catalogosModel({
-        name: req.body.name,
-        description: req.body.description,
-        proveedor_id: req.body.proveedor_id
-      });
+    const newCatalogo = new catalogosModel(req.body);
       try {
         const savedCatalogo = await newCatalogo.save();
         res.json(savedCatalogo);

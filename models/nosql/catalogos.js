@@ -5,7 +5,20 @@ const CatalogoScheme = new mongoose.Schema(
     {
         name: { type: String, required: true },
         description: { type: String },
-        proveedor_id: { type: mongoose.Schema.Types.ObjectId, ref: 'proveedores' }
+        proveedor_id: { 
+        type: mongoose.Schema.Types.ObjectId, 
+        ref: 'proveedores',
+        required: true 
+        },
+        productos: [
+            {
+            producto_id: {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: 'productos',
+                required: true
+                }
+            }
+        ],
 
     },
     {
@@ -14,5 +27,5 @@ const CatalogoScheme = new mongoose.Schema(
     }
 );
 
-//TracksScheme.plugin(mongooseDelete, { overrideMethods: "all"});
+
 module.exports = mongoose.model("Catalogos", CatalogoScheme);

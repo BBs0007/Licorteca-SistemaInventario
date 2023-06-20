@@ -11,10 +11,9 @@ const { handleHttpError } = require("../utils/handleError");
 const getProveedores = async (req,res) => {
 
     try {
-        const user = req.user;
-        const data = await proveedoresModel.find({});
-        console.log(data)
-        res.send({data, user});   
+        
+        const proveedor = await proveedoresModel.find({});
+        res.send(proveedor);   
     } catch (e) {
         console.log(e)
         handleHttpError(res, "error_get_items");   

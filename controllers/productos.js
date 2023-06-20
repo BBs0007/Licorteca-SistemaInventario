@@ -17,7 +17,7 @@ const getItems = async (req,res) => {
         // res.send({data, user});   
 
         const producto = await productosModel.find({})
-          .populate('catalog_id')
+          //.populate('catalog_id')
           .populate('proveedor_id');
         res.json(producto);
 
@@ -44,7 +44,7 @@ const getItem = async (req,res) => {
 
     try {
         const producto = await productosModel.findById(req.params.id)
-          .populate('catalog_id')
+          //.populate('catalog_id')
           .populate('proveedor_id');
         res.json(producto);
       } catch (error) {
@@ -73,16 +73,7 @@ const createItem = async (req,res) => {
     //     handleHttpError(res, "error al crear item");
     // }
 
-    const newProducto = new productosModel({
-        name: req.body.name,
-        description: req.body.description,
-        price: req.body.price,
-        stock_min: req.body.stock_min,
-        stock_max: req.body.stock_max,
-        stock_actual: req.body.stock_actual,
-        catalog_id: req.body.catalog_id,
-        proveedor_id: req.body.proveedor_id
-      });
+    const newProducto = new productosModel(req.body);
       try {
         const savedProducto = await newProducto.save();
         res.json(savedProducto);
